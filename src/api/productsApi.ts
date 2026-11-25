@@ -36,7 +36,8 @@ export class ProductsApi {
   }
 
   async search(term?: string): Promise<ApiResult<ProductsResponse & Partial<MessageResponse>>> {
-    const form = term === undefined ? {} : { search_product: term };
+    const form: Record<string, string> = {};
+    if (term !== undefined) form.search_product = term;
     return toResult(await this.request.post('/api/searchProduct', { form }));
   }
 }
